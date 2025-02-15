@@ -11,7 +11,7 @@ import {
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyD9mLHxFFRn4iQy7zB2qn7mz6jjBskYabI",
+  apiKey: import.meta.env.VITE_FIREBASE_APP,
   authDomain: "football-test-81e33.firebaseapp.com",
   databaseURL:
     "https://football-test-81e33-default-rtdb.asia-southeast1.firebasedatabase.app",
