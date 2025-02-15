@@ -1,5 +1,3 @@
-import React from "react";
-
 const BasketballFixtures = ({ data }) => {
   const { arena, date, league, scores, status, teams } = data;
 
@@ -17,10 +15,10 @@ const BasketballFixtures = ({ data }) => {
   }
 
   return (
-    <div className="relative transform overflow-hidden rounded-t-2xl shadow-xl transition duration-300 hover:scale-105 hover:shadow-xl">
+    <div className="relative transform overflow-hidden rounded-t-2xl bg-neutral-100 shadow-xl transition duration-300 hover:scale-105 hover:shadow-xl">
       {/* Gradient Header */}
-      <div className="bg-blue-300 p-4">
-        <h3 className="text-center text-lg font-bold text-white">
+      <div className="bg-fixtures-theme p-4">
+        <h3 className="text-center text-lg font-bold text-black">
           {league.toUpperCase()} {new Date(date.start).toLocaleDateString()}{" "}
         </h3>
       </div>
@@ -38,7 +36,8 @@ const BasketballFixtures = ({ data }) => {
 
         <div className="flex items-center justify-between">
           {/* Home Team */}
-          <div className="flex flex-col items-center">
+          <div className="flex flex-grow flex-col items-center">
+            {" "}
             <img
               src={teams.home.logo}
               alt={teams.home.name}
@@ -50,7 +49,8 @@ const BasketballFixtures = ({ data }) => {
           </div>
 
           {/* Match Info */}
-          <div className="mx-4 flex flex-col items-center">
+          <div className="flex flex-col items-center justify-center">
+            {" "}
             {status.short === 3 ? (
               <>
                 <p className="text-2xl font-extrabold text-gray-800">
@@ -75,7 +75,8 @@ const BasketballFixtures = ({ data }) => {
           </div>
 
           {/* Away Team */}
-          <div className="flex flex-col items-center">
+          <div className="flex flex-grow flex-col items-center">
+            {" "}
             <img
               src={teams.visitors.logo}
               alt={teams.visitors.name}

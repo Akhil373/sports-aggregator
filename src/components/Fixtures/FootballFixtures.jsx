@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 
 const FootballFixtures = ({ data }) => {
   const { fixture, teams, league } = data;
@@ -16,11 +16,13 @@ const FootballFixtures = ({ data }) => {
     statusText = "Upcoming";
   }
 
+  console.log(data.score?.fulltime);
+
   return (
-    <div className="relative transform overflow-hidden rounded-t-2xl shadow-xl transition duration-300 hover:scale-105 hover:shadow-xl">
+    <div className="relative transform overflow-hidden rounded-t-2xl bg-neutral-100 shadow-xl transition duration-300 hover:scale-105 hover:shadow-xl">
       {/* Gradient Header */}
-      <div className="bg-red-300 p-4">
-        <h3 className="text-center text-lg font-bold text-white">
+      <div className="bg-fixtures-theme p-4">
+        <h3 className="text-center text-lg font-bold text-black">
           {league.name}
         </h3>
       </div>
@@ -38,7 +40,8 @@ const FootballFixtures = ({ data }) => {
 
         <div className="flex items-center justify-between">
           {/* Home Team */}
-          <div className="flex flex-col items-center">
+          <div className="flex flex-grow flex-col items-center">
+            {" "}
             <img
               src={teams.home.logo}
               alt={teams.home.name}
@@ -50,8 +53,13 @@ const FootballFixtures = ({ data }) => {
           </div>
 
           {/* Match Info */}
-          <div className="mx-4 flex flex-col items-center">
-            <p className="text-2xl font-extrabold text-gray-800">VS</p>
+          <div className="flex flex-col items-center justify-center">
+            {" "}
+            <p className="text-2xl font-extrabold text-gray-800">
+              {data.score
+                ? `${data.score?.fulltime.home} - ${data.score?.fulltime.away}`
+                : "VS"}
+            </p>
             {statusText === "Upcoming" && fixture.fixture?.date && (
               <p className="mt-1 text-xs text-gray-500">
                 {new Date(fixture.fixture.date).toLocaleTimeString([], {
@@ -60,15 +68,11 @@ const FootballFixtures = ({ data }) => {
                 })}
               </p>
             )}
-            {fixture.status?.short !== "NS" && fixture.score?.fulltime && (
-              <p className="mt-1 text-xs font-medium text-gray-700">
-                {fixture.score.fulltime.home} - {fixture.score.fulltime.away}
-              </p>
-            )}
           </div>
 
           {/* Away Team */}
-          <div className="flex flex-col items-center">
+          <div className="flex flex-grow flex-col items-center">
+            {" "}
             <img
               src={teams.away.logo}
               alt={teams.away.name}

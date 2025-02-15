@@ -4,19 +4,19 @@ import NewsCards from "../components/News/NewsCards";
 import NewsFilters from "../components/News/NewsFilters";
 
 const News = () => {
-  const [filterChange, setFilterChange] = useState("All");
+  const [filterChange, setFilterChange] = useState("all");
 
   const handleFilterChange = (selectedFilter) => {
-    setFilterChange(selectedFilter.toLowerCase());
+    setFilterChange(selectedFilter);
     console.log(selectedFilter);
   };
 
   return (
     <>
-      <div className="px-15 py-5">
+      <div className="px-4 py-5 text-white md:px-15">
         <NavBar></NavBar>
-        <div className="flex bg-gradient-to-b from-white to-[#ca1f01] bg-clip-text pt-15 text-2xl font-medium text-transparent sm:text-5xl">
-          Latest news
+        <div className="from-news-theme flex bg-gradient-to-t to-yellow-400 bg-clip-text pt-5 text-5xl font-medium text-transparent lg:pt-15">
+          <p>Latest News.</p>
         </div>
         <NewsFilters onFilterChange={handleFilterChange} />
         <NewsCards selectedFilter={filterChange} />

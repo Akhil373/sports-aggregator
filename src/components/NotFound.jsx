@@ -4,10 +4,10 @@ import NavBar from "./NavBar";
 
 const NotFound = () => {
   return (
-    <div className="h-screen overflow-y-hidden px-15">
+    <div className="h-screen overflow-y-hidden px-15 text-white">
       <NavBar />
       <div className="flex h-screen items-center justify-center">
-        <img src="src/assets/404.png" alt="404" className="w-1/3" />
+        <img src="src/assets/404.png" alt="404" className="w-1/4" />
         <div>
           <h1 className="text-4xl font-bold"> OOPS! PAGE NOT FOUND.</h1>
           <p className="text-center text-gray-500">

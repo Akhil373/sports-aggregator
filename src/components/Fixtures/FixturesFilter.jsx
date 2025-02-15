@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 const FixturesFilter = ({ onFilterChange }) => {
   const [activeFilter, setActiveFilter] = useState("Basketball");
@@ -15,15 +15,15 @@ const FixturesFilter = ({ onFilterChange }) => {
   };
 
   return (
-    <div className="flex gap-3 py-4">
+    <div className="flex flex-wrap gap-3 py-4">
       {filters.map((filter) => (
         <button
           key={filter.id}
           onClick={() => handleFilterClick(filter.id)}
-          className={`text-2xs rounded-full px-6 py-1 transition-all ${
+          className={`text-2xs rounded-full px-6 py-1 transition-all duration-500 ${
             activeFilter === filter.id
-              ? "border border-[##ca1f01] text-[#ca1f01]"
-              : "border text-gray-700 hover:scale-105 hover:bg-red-200"
+              ? "border bg-[#ed2f85] font-[1000] text-black md:w-50"
+              : "border hover:scale-105 hover:bg-red-200"
           }`}
         >
           {filter.label}

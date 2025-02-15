@@ -1,13 +1,13 @@
 import { useState } from "react";
 
 const NewsFilters = ({ onFilterChange }) => {
-  const [activeFilter, setActiveFilter] = useState("All");
+  const [activeFilter, setActiveFilter] = useState("all");
 
   const filters = [
-    { id: "All", label: "All" },
-    { id: "Football", label: "Football" },
-    { id: "Basketball", label: "Basketball" },
-    { id: "Cricket", label: "Cricket" },
+    { id: "all", label: "All" },
+    { id: "football", label: "Football" },
+    { id: "basketball", label: "Basketball" },
+    { id: "cricket", label: "Cricket" },
   ];
 
   const handleFilterClick = (filterId) => {
@@ -16,15 +16,15 @@ const NewsFilters = ({ onFilterChange }) => {
   };
 
   return (
-    <div className="mb-5 flex gap-3 py-4">
+    <div className="mb-5 flex flex-wrap gap-3 py-4">
       {filters.map((filter) => (
         <button
           key={filter.id}
           onClick={() => handleFilterClick(filter.id)}
-          className={`text-2xs rounded-full px-6 py-1 transition-all ${
+          className={`text-2xs rounded-full px-6 py-1 transition-all duration-500 ${
             activeFilter === filter.id
-              ? "border border-[##ca1f01] text-[#ca1f01]"
-              : "border text-gray-700 hover:scale-105 hover:bg-red-200"
+              ? "bg-news-theme font-[1000] text-black md:w-50"
+              : "border hover:scale-105 hover:bg-red-200"
           }`}
         >
           {filter.label}

@@ -1,23 +1,21 @@
-import { useState } from "react";
+// import { useState } from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import Background from "./components/Background";
 import NotFound from "./components/NotFound";
 import Fixtures from "./pages/Fixtures";
-import Leaderboards from "./pages/Leaderboards";
+import LeagueTable from "./pages/LeagueTable";
 import News from "./pages/News";
 
 function App() {
   return (
     <Router>
-      <Background>
+      <div className="min-h-screen w-full bg-black">
         <Routes>
-          {/* <Route path="/" element={<Home />} /> */}
           <Route path="/" element={<News />} />
           <Route path="/fixtures" element={<Fixtures />} />
-          <Route path="/leaderboards" element={<Leaderboards />} />
+          <Route path="/leaderboards" element={<LeagueTable />} />
           <Route path="/*" element={<NotFound />} />
         </Routes>
-      </Background>
+      </div>
     </Router>
   );
 }

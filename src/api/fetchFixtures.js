@@ -1,8 +1,8 @@
 import { database, get, ref, remove, set } from "./firebase";
 
-const apiKey = "57682a67f7ffc62c5900e1fa9b153465";
+const apiKey = import.meta.env.VITE_SPORTS_APP;
 
-const cricket_apiKey = "599a050c-edbf-4334-9c44-a90e206a5fed";
+const cricket_apiKey = import.meta.env.VITE_CRICKET_APP;
 
 const API_ENDPOINTS = {
   football: "https://v3.football.api-sports.io/fixtures",
@@ -45,8 +45,6 @@ const fetchFixtures = async (sport, date) => {
       console.log("snapshot found! Fetching from firebase realtime db.");
 
       await cleanupPreviousDate(sport, date);
-
-      console.log(snapshot.val());
 
       return snapshot.val();
     } else {
@@ -96,9 +94,7 @@ export const fetchCricketFixtures = async (date) => {
     if (snapshot.exists()) {
       console.log("snapshot found! Fetching from firebase realtime db.");
 
-      await cleanupPreviousDate("sport", date);
-
-      console.log(snapshot.val());
+      await cleanupPreviousDate("Cricket", date);
 
       return snapshot.val();
     } else {
