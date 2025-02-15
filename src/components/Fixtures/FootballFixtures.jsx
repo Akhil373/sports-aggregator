@@ -16,10 +16,8 @@ const FootballFixtures = ({ data }) => {
     statusText = "Upcoming";
   }
 
-  console.log(data.score?.fulltime);
-
   return (
-    <div className="relative transform overflow-hidden rounded-t-2xl bg-neutral-100 shadow-xl transition duration-300 hover:scale-105 hover:shadow-xl">
+    <div className="bg-fixtures-cards-bg relative transform overflow-hidden rounded-t-2xl shadow-xl transition duration-300 hover:scale-105 hover:shadow-xl">
       {/* Gradient Header */}
       <div className="bg-fixtures-theme p-4">
         <h3 className="text-center text-lg font-bold text-black">

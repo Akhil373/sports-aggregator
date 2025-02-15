@@ -8,7 +8,7 @@ import News from "./pages/News";
 function App() {
   return (
     <Router>
-      <div className="min-h-screen w-full bg-black">
+      <div className="min-h-screen w-full">
         <Routes>
           <Route path="/" element={<News />} />
           <Route path="/fixtures" element={<Fixtures />} />

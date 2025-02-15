@@ -12,6 +12,7 @@ import {
   FootballFixtures,
 } from "../components/Fixtures";
 import NavBar from "../components/NavBar";
+import Notification from "../components/Notification";
 
 const Fixtures = () => {
   const [fixtures, setFixtures] = useState([]);
@@ -19,6 +20,7 @@ const Fixtures = () => {
   const [error, setError] = useState(null);
   const [filterChange, setFilterChange] = useState("basketball");
   const [noData, setNoData] = useState(false);
+  const [dataSource, setDataSource] = useState("");
 
   function getYesterdayDateString() {
     const today = new Date();
@@ -49,16 +51,20 @@ const Fixtures = () => {
         setFixtures([]);
         if (filterChange === "football") {
           const data = await fetchFootballFixtures("football", yesterdayString);
-          checkData(data);
+          checkData(data.sportsData);
+          setDataSource(data.dataSource);
         } else if (filterChange === "basketball") {
           const data = await fetchBasketballFixtures(
             "basketball",
             yesterdayString,
           );
-          checkData(data);
+          checkData(data.sportsData);
+          setDataSource(data.dataSource);
         } else {
           const data = await fetchCricketFixtures(yesterdayString);
-          checkData(data);
+          checkData(data.sportsData);
+          console.log(data.sportsData);
+          setDataSource(data.dataSource);
         }
       } catch (err) {
         setError(err.message);
@@ -100,11 +106,13 @@ const Fixtures = () => {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div className="px-15 py-5 text-white">
+    <div className="from-fixtures-bg-theme min-h-screen bg-gradient-to-br to-black px-15 py-5 text-white">
       <NavBar />
-      <div className="from-fixtures-theme flex bg-gradient-to-t to-yellow-400 bg-clip-text pt-5 text-5xl font-medium text-transparent lg:pt-15">
+      <div className="text-fixtures-theme flex pt-5 text-5xl font-medium lg:pt-15">
         <p>Live Fixtures.</p>
       </div>
+
+      <Notification source={dataSource} />
 
       <FixturesFilter onFilterChange={handleFilterChange} />
 

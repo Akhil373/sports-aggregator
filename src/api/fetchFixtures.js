@@ -1,14 +1,12 @@
 import { database, get, ref, remove, set } from "./firebase";
 
 const apiKey = import.meta.env.VITE_SPORTS_APP;
-
 const cricket_apiKey = import.meta.env.VITE_CRICKET_APP;
+let dataSource = "";
 
 const API_ENDPOINTS = {
   football: "https://v3.football.api-sports.io/fixtures",
-
   cricket: "https://api.cricapi.com/v1/currentMatches",
-
   basketball: "https://v2.nba.api-sports.io/games",
 };
 
@@ -23,9 +21,7 @@ const cleanupPreviousDate = async (sport, date) => {
   prevDate.setDate(prevDate.getDate() - 1);
 
   const prevDateString = prevDate.toISOString().split("T")[0];
-
   const prevDateRef = ref(database, `${sport}Fixtures/${prevDateString}`);
-
   const prevSnapshot = await get(prevDateRef);
 
   if (prevSnapshot.exists()) {
@@ -45,8 +41,9 @@ const fetchFixtures = async (sport, date) => {
       console.log("snapshot found! Fetching from firebase realtime db.");
 
       await cleanupPreviousDate(sport, date);
+      dataSource = "firebase";
 
-      return snapshot.val();
+      return { sportsData: snapshot.val(), dataSource };
     } else {
       console.log("fetching directly from api");
 
@@ -63,12 +60,11 @@ const fetchFixtures = async (sport, date) => {
       if (!response.ok) throw new Error("Network response was not ok");
 
       const apiData = await response.json();
-
       const processedData = apiData;
-
       await set(dbRef, processedData);
+      dataSource = "api";
 
-      return processedData;
+      return { sportsData: processedData, dataSource };
     }
   } catch (error) {
     console.error("Error:", error);
@@ -95,8 +91,9 @@ export const fetchCricketFixtures = async (date) => {
       console.log("snapshot found! Fetching from firebase realtime db.");
 
       await cleanupPreviousDate("Cricket", date);
+      dataSource = "firebase";
 
-      return snapshot.val();
+      return { sportsData: snapshot.val(), dataSource };
     } else {
       console.log("fetching directly from api");
 
@@ -111,10 +108,10 @@ export const fetchCricketFixtures = async (date) => {
       const processedData = {
         response: apiData.data,
       };
-
       await set(dbRef, processedData);
+      dataSource = "api";
 
-      return processedData;
+      return { sportsData: processedData, dataSource };
     }
   } catch (error) {
     console.error("Error:", error);

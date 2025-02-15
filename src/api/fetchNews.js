@@ -1,6 +1,7 @@
 import { database, get, ref, remove, set } from "./firebase";
 
 const news_apiKey = import.meta.env.VITE_NEWS_APP;
+let dataSource = "";
 
 const cleanupPreviousDateData = async (category, date) => {
   const prevDate = new Date(date);
@@ -27,8 +28,9 @@ export async function getNewsData(category) {
     if (snapshot.exists()) {
       console.log("Loading news from Firebase cache");
       await cleanupPreviousDateData(category, today);
+      dataSource = "firebase";
 
-      return snapshot.val();
+      return { newsData: snapshot.val(), dataSource };
     } else {
       console.log("Fetching new news data from API");
       let response;
@@ -57,10 +59,11 @@ export async function getNewsData(category) {
       }
 
       const data = await response.json();
+      dataSource = "api";
 
       await set(dbRef, data.articles);
       await cleanupPreviousDateData(category, today);
-      return data.articles;
+      return { newsData: data.articles, dataSource };
     }
   } catch (error) {
     console.error("Error fetching news:", error);

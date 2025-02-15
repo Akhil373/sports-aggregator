@@ -60,9 +60,9 @@ const Summary = ({ data, category }) => {
 
   if (loadingSummmary) {
     return (
-      <div className="mb-3 flex items-center rounded-2xl bg-gray-900 transition-all">
+      <div className="bg-summary-btn mb-3 flex items-center rounded-2xl transition-all">
         <p className="p-5">Generating Summary...</p>
-        <Sparkle className="animate-spin"></Sparkle>
+        <Sparkle className="animate-spin fill-[#F9E400] text-[#F9E400]"></Sparkle>
       </div>
     );
   }
@@ -76,7 +76,7 @@ const Summary = ({ data, category }) => {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="overflow-hidden"
         >
-          <Markdown className="mt-5 flex flex-col items-start gap-5 rounded-2xl bg-gray-900 p-5 leading-7">
+          <Markdown className="mt-5 flex flex-col items-start gap-5 rounded-2xl bg-black p-5 leading-7">
             {response}
           </Markdown>
         </motion.div>
@@ -86,7 +86,7 @@ const Summary = ({ data, category }) => {
         <div className={isSummaryVisible ? "" : "flex justify-end"}>
           <button
             onClick={isSummaryVisible ? closeSummary : getSummary}
-            className={`mb-5 flex cursor-pointer items-center justify-center gap-2 rounded-xl border bg-[#FFD700] px-5 py-2 text-center font-bold text-black ${
+            className={`bg-summary-btn text-3xs mb-5 flex cursor-pointer items-center justify-center gap-2 rounded-xl px-5 py-3 text-center font-[500] tracking-wide text-white ${
               isSummaryVisible ? "w-full" : "w-full md:w-auto"
             }`}
           >
@@ -95,7 +95,7 @@ const Summary = ({ data, category }) => {
             ) : (
               <>
                 Summarize Articles{" "}
-                <Sparkle className="animate-pulse fill-black text-center text-transparent" />
+                <Sparkle className="animate-wiggle-inf fill-[#F9E400] text-center text-[#F9E400]" />
               </>
             )}
           </button>

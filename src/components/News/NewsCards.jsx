@@ -1,33 +1,12 @@
-import { useEffect, useState } from "react";
-import { getNewsData } from "../../api/fetchNews.js";
+import { NewspaperIcon } from "lucide-react";
 import Summary from "./Summary.jsx";
 
-const NewsCards = ({ selectedFilter }) => {
-  const [newsItems, setNewsItems] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    setLoading(true);
-    getNewsData(selectedFilter)
-      .then((data) => {
-        const articles = Array.isArray(data) ? data : data?.news || [];
-        setNewsItems(articles);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error loading news:", error);
-        setLoading(false);
-      });
-  }, [selectedFilter]);
-
+const NewsCards = ({ newsItems, loading, selectedFilter }) => {
   if (loading) {
     return (
-      <div className="flex items-center justify-center">
-        <img
-          src="/src/assets/Newspaper2.svg"
-          alt="loading..."
-          className="w-1/3 animate-pulse"
-        />
+      <div className="flex flex-col items-center justify-center">
+        <p className="mt-20 mb-5 text-3xl">Fetching News...</p>
+        <NewspaperIcon className="h-32 w-32 animate-pulse" />
       </div>
     );
   }
@@ -40,7 +19,9 @@ const NewsCards = ({ selectedFilter }) => {
           item.urlToImage ? (
             <div
               key={index}
-              className={`flex min-h-[400px] flex-col overflow-hidden rounded-2xl bg-[#1b1c1d] transition-all hover:scale-[1.02] hover:shadow-lg hover:shadow-[#dc125b] lg:min-w-50 ${(index + 1) % 5 === 0 ? "md:col-span-2" : ""}`}
+              className={`flex min-h-[400px] flex-col overflow-hidden rounded-2xl shadow-2xl transition-all hover:scale-[1.02] hover:shadow-lg hover:shadow-summary-btn lg:min-w-50 ${
+                (index + 1) % 5 === 0 ? "md:col-span-2" : ""
+              }`}
             >
               <div className="relative h-48 md:h-56">
                 <img
@@ -54,9 +35,13 @@ const NewsCards = ({ selectedFilter }) => {
                 </span>
               </div>
               <div className="flex flex-1 flex-col gap-4 p-6">
-                <h3 className="line-clamp-3 text-lg leading-tight font-semibold">
+                <a
+                  href={item.url}
+                  className="line-clamp-3 text-lg leading-tight font-semibold hover:underline"
+                  target="_blank"
+                >
                   {item.title}
-                </h3>
+                </a>
                 <p className="line-clamp-3 text-neutral-400">
                   {item.description}
                 </p>
@@ -66,6 +51,7 @@ const NewsCards = ({ selectedFilter }) => {
                   </time>
                   <a
                     href={item.url}
+                    target="_blank"
                     className="text-news-theme font-medium hover:text-blue-800"
                   >
                     Read more →

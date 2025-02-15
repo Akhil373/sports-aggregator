@@ -7,8 +7,9 @@
 
   min-height: 100vh;
   width: 100vw;
-  background: black;
   overflow-x: hidden;
+
+  /* background-color: #b4f0b4; */
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -17,6 +18,23 @@
 }
 
 @theme {
-  --color-news-theme: #00B8D4;
-  --color-fixtures-theme: #ed2f85;
+  --color-news-theme: #7fff00;
+  --color-fixtures-theme: #ea168e;
+  --color-summary-btn: #8000ff;
+  --color-notification-theme: #6effbf;
+  --color-news-bg-theme: #023002;
+  --color-fixtures-bg-theme: #530330;
+  --color-fixtures-cards-bg: #f9c4f9;
+
+  --animate-wiggle: wiggle 1s ease;
+  --animate-wiggle-inf: wiggle 1s ease infinite;
+  @keyframes wiggle {
+    0%,
+    100% {
+      transform: rotate(-15deg);
+    }
+    50% {
+      transform: rotate(15deg);
+    }
+  }
 }

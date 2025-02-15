@@ -12,9 +12,11 @@ const NavBar = () => {
   return (
     <>
       <div
-        className={`${openNavbar ? null : "sticky top-0 z-50"} hidden gap-12 overflow-hidden py-3 backdrop-blur-lg lg:flex`}
+        className={`${openNavbar ? null : "sticky top-0 z-5"} hidden gap-12 overflow-hidden py-3 backdrop-blur-lg lg:flex`}
       >
-        <Award className="absolute left-10" />
+        <Link to="/" className="absolute left-10 px-2">
+          <Award />
+        </Link>
         <div
           className={`flex w-full items-center justify-center gap-12 transition-all duration-300`}
         >
@@ -27,13 +29,13 @@ const NavBar = () => {
 
       <div className="lg:hidden">
         <button
-          className="fixed right-6 bottom-6 z-50 rounded-full bg-black p-4 shadow-lg transition-all duration-300 hover:scale-105 hover:cursor-pointer"
+          className="fixed right-6 bottom-6 z-50 rounded-full bg-black p-4 shadow-lg transition-all"
           onClick={togglenavbar}
         >
           {openNavbar ? (
-            <X size={32} className="text-white" />
+            <X size={32} className="animate-wiggle text-white" />
           ) : (
-            <LucideAlignRight size={32} className="text-white" />
+            <LucideAlignRight size={32} className="animate-wiggle text-white" />
           )}
         </button>
 
