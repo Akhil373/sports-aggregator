@@ -11,7 +11,6 @@ import {
   FixturesFilter,
   FootballFixtures,
 } from "../components/Fixtures";
-import NavBar from "../components/NavBar";
 import Notification from "../components/Notification";
 
 const Fixtures = () => {
@@ -106,8 +105,7 @@ const Fixtures = () => {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div className="dark:from-fixtures-bg-theme from-fixtures-bg-theme-light min-h-screen bg-gradient-to-br to-transparent px-15 py-5 dark:to-black dark:text-white">
-      <NavBar />
+    <>
       <div className="text-fixtures-theme flex pt-5 text-5xl font-medium lg:pt-15">
         <p>Live Fixtures.</p>
       </div>
@@ -160,7 +158,7 @@ const Fixtures = () => {
           </motion.div>
         </AnimatePresence>
       )}
-    </div>
+    </>
   );
 };
 

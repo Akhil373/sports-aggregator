@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { getNewsData } from "../api/fetchNews.js";
-import NavBar from "../components/NavBar";
 import NewsCards from "../components/News/NewsCards";
 import NewsFilters from "../components/News/NewsFilters";
 import Notification from "../components/Notification.jsx";
@@ -38,19 +37,16 @@ const News = () => {
 
   return (
     <>
-      <div className="dark:from-news-bg-theme min-h-screen bg-gradient-to-br from-lime-100 to-white px-4 py-5 text-black md:px-15 dark:to-black dark:text-white">
-        <NavBar />
-        <div className="from-news-theme flex dark:bg-gradient-to-t  dark:bg-clip-text pt-5 text-5xl font-medium dark:text-transparent lg:pt-15 dark:to-yellow-400">
-          <p>Latest News.</p>
-        </div>
-        <Notification source={dataSource} />
-        <NewsFilters onFilterChange={handleFilterChange} />
-        <NewsCards
-          newsItems={newsItems}
-          loading={loading}
-          selectedFilter={filterChange}
-        />
+      <div className="from-news-theme flex pt-5 text-5xl font-medium lg:pt-15 dark:bg-gradient-to-t dark:to-yellow-400 dark:bg-clip-text dark:text-transparent">
+        <p>Latest News.</p>
       </div>
+      <Notification source={dataSource} />
+      <NewsFilters onFilterChange={handleFilterChange} />
+      <NewsCards
+        newsItems={newsItems}
+        loading={loading}
+        selectedFilter={filterChange}
+      />
     </>
   );
 };

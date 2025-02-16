@@ -1,8 +1,8 @@
-import { Award, LucideAlignRight, X } from "lucide-react";
+import { Award, LucideAlignRight, MoonIcon, X } from "lucide-react";
 import React from "react";
 import { Link } from "react-router-dom";
 
-const NavBar = () => {
+const NavBar = ({ theme, darkTheme }) => {
   const [openNavbar, setOpenNavbar] = React.useState(false);
 
   const togglenavbar = () => {
@@ -12,20 +12,39 @@ const NavBar = () => {
   return (
     <>
       <div
-        className={`${openNavbar ? null : "sticky top-0 z-5"} hidden gap-12 overflow-hidden py-3 backdrop-blur-lg lg:flex`}
+        className={`${openNavbar ? "" : "sticky top-0 z-5"} hidden gap-12 overflow-hidden py-3 backdrop-blur-lg lg:flex`}
       >
-        <Link to="/" className="absolute left-10 px-2">
+        <Link to="/" className="px-2">
           <Award />
         </Link>
-        <div
-          className={`flex w-full items-center justify-center gap-12 transition-all duration-300`}
-        >
+        <div className="flex w-full items-center justify-center gap-12 transition-all duration-300">
           <Link to="/">Home</Link>
           <Link to="/">Latest News</Link>
           <Link to="/fixtures">Fixtures</Link>
           <Link to="/leaderboards">League Table</Link>
         </div>
+        <button
+          className="cursor-pointer px-2 text-nowrap transition-all duration-500"
+          onClick={theme}
+        >
+          {darkTheme ? (
+            <MoonIcon className="fill-white" />
+          ) : (
+            <MoonIcon className="fill-black" />
+          )}
+        </button>
       </div>
+
+      <button
+        className="absolute top-5 right-5 cursor-pointer rounded-[50%] border p-3 lg:hidden dark:text-white"
+        onClick={theme}
+      >
+        {darkTheme ? (
+          <MoonIcon className="fill-white" />
+        ) : (
+          <MoonIcon className="fill-black" />
+        )}
+      </button>
 
       <div className="lg:hidden">
         <button

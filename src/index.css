@@ -17,6 +17,8 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --color-news-theme: #7fff00;
   --color-news-theme-light: #56ac00;
