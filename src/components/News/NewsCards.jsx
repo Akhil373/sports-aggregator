@@ -1,12 +1,17 @@
-import { NewspaperIcon } from "lucide-react";
+import NewsCardSkeleton from "./NewsCardSkeleton.jsx";
 import Summary from "./Summary.jsx";
 
 const NewsCards = ({ newsItems, loading, selectedFilter }) => {
   if (loading) {
     return (
-      <div className="flex flex-col items-center justify-center">
-        <p className="mt-20 mb-5 text-3xl">Fetching News...</p>
-        <NewspaperIcon className="h-32 w-32 animate-pulse" />
+      <div className="m-auto">
+        <div className="mt-10 grid grid-cols-1 gap-10 md:grid-cols-[repeat(auto-fit,minmax(300px,1fr))]">
+          {Array(4)
+            .fill(0)
+            .map((_, index) => (
+              <NewsCardSkeleton key={index} />
+            ))}
+        </div>
       </div>
     );
   }

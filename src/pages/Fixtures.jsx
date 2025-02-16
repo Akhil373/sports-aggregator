@@ -11,6 +11,7 @@ import {
   FixturesFilter,
   FootballFixtures,
 } from "../components/Fixtures";
+import { default as FixturesLoadingSkeleton } from "../components/Fixtures/FixturesLoadingSkeleton";
 import Notification from "../components/Notification";
 
 const Fixtures = () => {
@@ -86,21 +87,18 @@ const Fixtures = () => {
 
   if (loading)
     return (
-      <div className="flex h-screen items-center justify-center">
-        <motion.img
-          src="./src/assets/basketball.svg"
-          alt="loading..."
-          className="w-25"
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{
-            type: "spring",
-            stiffness: 260,
-            damping: 20,
-            repeat: Infinity,
-          }}
-        />
-      </div>
+      <>
+        <div className="text-fixtures-theme flex pt-5 text-5xl font-medium lg:pt-15">
+          <p>Live Fixtures.</p>
+        </div>
+        <div className="flex flex-col gap-10 py-10 lg:px-50">
+          {Array(2)
+            .fill(0)
+            .map((_, index) => (
+              <FixturesLoadingSkeleton key={index} />
+            ))}
+        </div>
+      </>
     );
   if (error) return <div>Error: {error}</div>;
 

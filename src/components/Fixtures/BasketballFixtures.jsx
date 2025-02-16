@@ -19,7 +19,7 @@ const BasketballFixtures = ({ data }) => {
       {/* Gradient Header */}
       <div className="bg-fixtures-theme p-4">
         <h3 className="text-center text-lg font-bold text-black">
-          {league.toUpperCase()} {new Date(date.start).toLocaleDateString()}{" "}
+          {league.toUpperCase()} {new Date(date.start).toLocaleDateString()}
         </h3>
       </div>
 
@@ -37,7 +37,6 @@ const BasketballFixtures = ({ data }) => {
         <div className="flex items-center justify-between">
           {/* Home Team */}
           <div className="flex flex-grow flex-col items-center">
-            {" "}
             <img
               src={teams.home.logo}
               alt={teams.home.name}
@@ -50,14 +49,13 @@ const BasketballFixtures = ({ data }) => {
 
           {/* Match Info */}
           <div className="flex flex-col items-center justify-center">
-            {" "}
             {status.short === 3 ? (
               <>
                 <p className="text-2xl font-extrabold text-gray-800">
                   {scores.home.points} - {scores.visitors.points}
                 </p>
                 <p className="mt-1 text-xs text-gray-500">
-                  {scores.home.linescore.join(" - ")} ||{" "}
+                  {scores.home.linescore.join(" - ")} ||
                   {scores.visitors.linescore.join(" - ")}
                 </p>
               </>
@@ -76,7 +74,6 @@ const BasketballFixtures = ({ data }) => {
 
           {/* Away Team */}
           <div className="flex flex-grow flex-col items-center">
-            {" "}
             <img
               src={teams.visitors.logo}
               alt={teams.visitors.name}
