@@ -19,7 +19,7 @@ const NewsCards = ({ newsItems, loading, selectedFilter }) => {
           item.urlToImage ? (
             <div
               key={index}
-              className={`flex min-h-[400px] flex-col overflow-hidden rounded-2xl shadow-2xl transition-all hover:scale-[1.02] hover:shadow-lg hover:shadow-summary-btn lg:min-w-50 ${
+              className={`hover:shadow-summary-btn flex min-h-[400px] flex-col overflow-hidden rounded-2xl shadow-2xl transition-all hover:scale-[1.02] hover:shadow-lg lg:min-w-50 ${
                 (index + 1) % 5 === 0 ? "md:col-span-2" : ""
               }`}
             >
@@ -42,7 +42,7 @@ const NewsCards = ({ newsItems, loading, selectedFilter }) => {
                 >
                   {item.title}
                 </a>
-                <p className="line-clamp-3 text-neutral-400">
+                <p className="line-clamp-3 text-neutral-600 dark:text-neutral-400">
                   {item.description}
                 </p>
                 <div className="mt-auto flex items-center justify-between text-sm">
@@ -52,7 +52,7 @@ const NewsCards = ({ newsItems, loading, selectedFilter }) => {
                   <a
                     href={item.url}
                     target="_blank"
-                    className="text-news-theme font-medium hover:text-blue-800"
+                    className="text-news-theme-light font-medium hover:text-blue-800"
                   >
                     Read more →
                   </a>

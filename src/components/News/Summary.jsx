@@ -60,7 +60,7 @@ const Summary = ({ data, category }) => {
 
   if (loadingSummmary) {
     return (
-      <div className="bg-summary-btn mb-3 flex items-center rounded-2xl transition-all">
+      <div className="bg-summary-btn mb-3 flex items-center rounded-2xl text-white transition-all dark:text-black">
         <p className="p-5">Generating Summary...</p>
         <Sparkle className="animate-spin fill-[#F9E400] text-[#F9E400]"></Sparkle>
       </div>
@@ -76,7 +76,7 @@ const Summary = ({ data, category }) => {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="overflow-hidden"
         >
-          <Markdown className="mt-5 flex flex-col items-start gap-5 rounded-2xl bg-black p-5 leading-7">
+          <Markdown className="mt-5 flex flex-col items-start gap-5 rounded-2xl p-5 leading-7 text-black dark:bg-black dark:text-white dark:shadow-none">
             {response}
           </Markdown>
         </motion.div>

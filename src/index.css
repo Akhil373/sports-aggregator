@@ -9,7 +9,7 @@
   width: 100vw;
   overflow-x: hidden;
 
-  /* background-color: #b4f0b4; */
+  /* background-color: #fbcae6; */
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -19,6 +19,8 @@
 
 @theme {
   --color-news-theme: #7fff00;
+  --color-news-theme-light: #56ac00;
+  --color-fixtures-bg-theme-light: #fbcae6;
   --color-fixtures-theme: #ea168e;
   --color-summary-btn: #8000ff;
   --color-notification-theme: #6effbf;
@@ -27,7 +29,7 @@
   --color-fixtures-cards-bg: #f9c4f9;
 
   --animate-wiggle: wiggle 1s ease;
-  --animate-wiggle-inf: wiggle 1s ease infinite;
+  --animate-spin-once: spin-once 3s ease;
   @keyframes wiggle {
     0%,
     100% {
@@ -35,6 +37,16 @@
     }
     50% {
       transform: rotate(15deg);
+    }
+  }
+
+  @keyframes spin-once {
+    0%,
+    100% {
+      transform: rotate(-180deg);
+    }
+    50% {
+      transform: rotate(180deg);
     }
   }
 }

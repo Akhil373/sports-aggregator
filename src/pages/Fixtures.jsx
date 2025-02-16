@@ -18,7 +18,7 @@ const Fixtures = () => {
   const [fixtures, setFixtures] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [filterChange, setFilterChange] = useState("basketball");
+  const [filterChange, setFilterChange] = useState("football");
   const [noData, setNoData] = useState(false);
   const [dataSource, setDataSource] = useState("");
 
@@ -32,7 +32,7 @@ const Fixtures = () => {
   const yesterdayString = getYesterdayDateString();
 
   const handleFilterChange = (selectedFilter) => {
-    setFilterChange(selectedFilter.toLowerCase());
+    setFilterChange(selectedFilter);
   };
 
   const checkData = (items) => {
@@ -106,7 +106,7 @@ const Fixtures = () => {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div className="from-fixtures-bg-theme min-h-screen bg-gradient-to-br to-black px-15 py-5 text-white">
+    <div className="dark:from-fixtures-bg-theme from-fixtures-bg-theme-light min-h-screen bg-gradient-to-br to-transparent px-15 py-5 dark:to-black dark:text-white">
       <NavBar />
       <div className="text-fixtures-theme flex pt-5 text-5xl font-medium lg:pt-15">
         <p>Live Fixtures.</p>

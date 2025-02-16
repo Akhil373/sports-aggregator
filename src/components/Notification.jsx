@@ -30,7 +30,7 @@ const Notification = ({ source }) => {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.3 }}
-          className="absolute top-0 right-0 z-10 m-3 flex items-center gap-2 rounded-md bg-notification-theme p-5 text-gray-800 shadow-md"
+          className="bg-notification-theme absolute top-0 right-0 z-10 m-auto flex w-full items-center gap-2 rounded-md p-3 text-gray-800 shadow-md md:m-3 md:w-fit md:p-5"
         >
           <InfoIcon />
           <p className="text-2sm">{fetchedFrom}</p>

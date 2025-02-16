@@ -38,9 +38,9 @@ const News = () => {
 
   return (
     <>
-      <div className="from-news-bg-theme min-h-screen bg-gradient-to-br to-black px-4 py-5 text-white md:px-15">
+      <div className="dark:from-news-bg-theme min-h-screen bg-gradient-to-br from-lime-100 to-white px-4 py-5 text-black md:px-15 dark:to-black dark:text-white">
         <NavBar />
-        <div className="from-news-theme flex bg-gradient-to-t to-yellow-400 bg-clip-text pt-5 text-5xl font-medium text-transparent lg:pt-15">
+        <div className="from-news-theme flex dark:bg-gradient-to-t  dark:bg-clip-text pt-5 text-5xl font-medium dark:text-transparent lg:pt-15 dark:to-yellow-400">
           <p>Latest News.</p>
         </div>
         <Notification source={dataSource} />
