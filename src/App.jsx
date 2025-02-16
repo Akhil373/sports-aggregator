@@ -36,7 +36,7 @@ const AppContent = () => {
   useEffect(() => {
     if (location.pathname === "/fixtures") {
       setPageBgClass(
-        "dark:from-fixtures-bg-theme from-fixtures-bg-theme-light min-h-screen bg-gradient-to-br to-[#002700] px-15 dark:to-black dark:text-white",
+        "dark:from-fixtures-bg-theme from-fixtures-bg-theme-light min-h-screen bg-gradient-to-br to-white px-15 dark:to-black dark:text-white py-3",
       );
     } else if (
       location.pathname === "/" ||
@@ -44,10 +44,12 @@ const AppContent = () => {
       location.pathname === "/home"
     ) {
       setPageBgClass(
-        "dark:from-news-bg-theme min-h-screen bg-gradient-to-br from-lime-100 to-white px-4 text-black md:px-15 dark:to-black dark:text-white",
+        "dark:from-news-bg-theme min-h-screen bg-gradient-to-br from-lime-100 to-white px-4 text-black md:px-15 dark:to-black dark:text-white py-3",
       );
     } else {
-      setPageBgClass("min-h-screen bg-gray-100");
+      setPageBgClass(
+        "min-h-screen bg-gray-100 dark:bg-gray-800 px-4 md:px-15 py-3",
+      );
     }
   }, [location.pathname]);
 

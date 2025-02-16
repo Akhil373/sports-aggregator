@@ -24,7 +24,7 @@ const NewsFilters = ({ onFilterChange }) => {
           className={`text-2xs rounded-full px-6 py-1 transition-all ${
             activeFilter === filter.id
               ? "bg-news-theme font-[1000] text-black md:w-50"
-              : "border hover:bg-green-200"
+              : "border hover:bg-green-200 hover:text-black"
           }`}
         >
           {filter.label}

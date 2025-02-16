@@ -12,7 +12,7 @@ const NavBar = ({ theme, darkTheme }) => {
   return (
     <>
       <div
-        className={`${openNavbar ? "" : "sticky top-0 z-5"} hidden gap-12 overflow-hidden py-3 backdrop-blur-lg lg:flex`}
+        className={`${openNavbar ? "" : "sticky top-0 z-5"} hidden gap-12 overflow-hidden py-3 backdrop-blur-lg lg:flex dark:text-white`}
       >
         <Link to="/" className="px-2">
           <Award />

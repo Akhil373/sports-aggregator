@@ -19,15 +19,33 @@ export async function summarizeArticles(articles, category) {
     .join("");
 
   const prompt = `
-**Objective:** Please summarize the following news articles, highlighting the main topics and key events in each. Focus on extracting the most important information from each article to provide a concise overview of today's top sports news. Present the summary in a very easy-to-read way for users, visually pleasing and easy to understand and skim through. All summary related to similar sport must be under heading of the common sport name. The title of the sport must be clearly visible with good spacing and bold text. If the cateogry specifies any specific sport, then only summary articles from that category. If the articles are too many, just summarize first 30 articles.
+**Objective:**  
+Summarize the following news articles, highlighting the main topics and key events in each. Extract only the most important information to provide a concise overview of today's top sports news.
 
-**Format:** Markdown. Don't include <br> tags. Only the headings should have 1 emoji & no more. Make sure it's clear to the user about different summary lines and not all the lines cramped together. 
+- **Group summaries by sport:**  
+  For articles related to the same sport, group them under a heading with the sport's name in **bold** and with a single emoji at the beginning.
 
-**Tone:** Direct and to-the-point. Provide only the summary, without any introductory or concluding phrases.
+- **Category Filtering:**  
+  If the category specifies a particular sport, summarize only the articles for that sport. Also exclude articles with the same news.
 
-**News Articles:**
-Category: ${category}
+- **Article Limit:**  
+  If there are more than 30 articles, summarize only the first 30.
+
+- **Data Source:**  
+  Use each article's URL to read the full news content before summarizing.
+
+- **Format:**  
+  - Output in Markdown.  
+  - Do not use <br> tags.  
+  - Only the headings should include one emoji, and no more.
+
+- **Tone:**  
+  Direct and to-the-point. Provide only the summary content without any introductory or concluding phrases.
+
+**News Articles:**  
+Category: ${category}  
 ${formattedData}
+
 `;
 
   try {
