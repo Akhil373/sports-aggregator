@@ -60,7 +60,7 @@ const Summary = ({ data, category }) => {
 
   if (loadingSummmary) {
     return (
-      <div className="bg-summary-btn mb-3 flex items-center rounded-2xl text-white transition-all dark:text-black">
+      <div className="bg-summary-btn mb-3 flex items-center rounded-2xl text-white transition-all">
         <p className="p-5">Generating Summary...</p>
         <Sparkle className="animate-spin fill-[#F9E400] text-[#F9E400]"></Sparkle>
       </div>
@@ -68,7 +68,9 @@ const Summary = ({ data, category }) => {
   }
 
   return (
-    <div className={`relative ${isSummaryVisible ? "pb-20" : "pb-20 md:pb-5"}`}>
+    <div
+      className={`relative flex flex-col ${isSummaryVisible ? "gap-5 border-t-2 lg:pb-20 dark:border-0" : "pb-5"}`}
+    >
       {isSummaryVisible && response && (
         <motion.div
           initial={{ opacity: 0, height: 0, overflow: "hidden" }}
@@ -82,12 +84,12 @@ const Summary = ({ data, category }) => {
         </motion.div>
       )}
 
-      <div className="absolute right-0 bottom-0 left-0 px-5 md:px-0">
+      <div className="right-0 bottom-0 left-0 px-5 md:px-0 lg:absolute">
         <div className={isSummaryVisible ? "" : "flex justify-end"}>
           <button
             onClick={isSummaryVisible ? closeSummary : getSummary}
             className={`bg-summary-btn text-3xs mb-5 flex cursor-pointer items-center justify-center gap-2 rounded-xl px-5 py-3 text-center font-[500] tracking-wide text-white ${
-              isSummaryVisible ? "w-full" : "w-full md:w-auto"
+              isSummaryVisible ? "w-full" : "w-full lg:w-auto"
             }`}
           >
             {isSummaryVisible ? (
