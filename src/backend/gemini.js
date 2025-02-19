@@ -1,6 +1,12 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import dotenv from "dotenv";
+import { dirname } from "path";
+import { fileURLToPath } from "url";
 
-const api = import.meta.env.VITE_GEMINI_APP;
+const __dirname = dirname(fileURLToPath(import.meta.url));
+dotenv.config({ path: "../../.env" });
+
+const api = process.env.GEMINI_APP;
 const genAI = new GoogleGenerativeAI(api);
 const model = genAI.getGenerativeModel({
   model: "gemini-2.0-flash-lite-preview-02-05",

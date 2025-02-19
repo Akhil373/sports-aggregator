@@ -36,4 +36,20 @@ export default [
       ],
     },
   },
+  // Override for Node files (like your backend server)
+  {
+    files: ["src/backend/**/*.js"],
+    languageOptions: {
+      // Set the environment to Node
+      globals: globals.node,
+      parserOptions: {
+        ecmaVersion: "latest",
+        sourceType: "module",
+      },
+    },
+    env: {
+      node: true,
+    },
+    rules: {},
+  },
 ];

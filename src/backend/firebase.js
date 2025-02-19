@@ -1,17 +1,10 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.0/firebase-app.js";
-import {
-  child,
-  get,
-  getDatabase,
-  ref,
-  remove,
-  set,
-} from "https://www.gstatic.com/firebasejs/11.3.0/firebase-database.js";
+import { configDotenv } from "dotenv";
+import { initializeApp } from "firebase/app";
+import { child, get, getDatabase, ref, remove, set } from "firebase/database";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_APP,
+  apiKey: "AIzaSyD9mLHxFFRn4iQy7zB2qn7mz6jjBskYabI",
   authDomain: "football-test-81e33.firebaseapp.com",
   databaseURL:
     "https://football-test-81e33-default-rtdb.asia-southeast1.firebasedatabase.app",

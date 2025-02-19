@@ -1,10 +1,6 @@
+import axios from "axios";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import {
-  fetchBasketballFixtures,
-  fetchCricketFixtures,
-  fetchFootballFixtures,
-} from "../api/fetchFixtures";
 import {
   BasketballFixtures,
   CricketFixtures,
@@ -30,6 +26,7 @@ const Fixtures = () => {
   }
 
   const yesterdayString = getYesterdayDateString();
+  console.log(yesterdayString);
 
   const handleFilterChange = (selectedFilter) => {
     setFilterChange(selectedFilter);
@@ -50,20 +47,23 @@ const Fixtures = () => {
       try {
         setFixtures([]);
         if (filterChange === "football") {
-          const data = await fetchFootballFixtures("football", yesterdayString);
+          const { data } = await axios.get(
+            `http://localhost:5000/api/fixtures?sport=${filterChange}&date=${yesterdayString}`,
+          );
           checkData(data.sportsData);
           setDataSource(data.dataSource);
         } else if (filterChange === "basketball") {
-          const data = await fetchBasketballFixtures(
-            "basketball",
-            yesterdayString,
+          const { data } = await axios.get(
+            `http://localhost:5000/api/fixtures?sport=${filterChange}&date=${yesterdayString}`,
           );
           checkData(data.sportsData);
           setDataSource(data.dataSource);
         } else {
-          const data = await fetchCricketFixtures(yesterdayString);
-          checkData(data.sportsData);
-          console.log(data.sportsData);
+          const data = await axios.get(
+            `http://localhost:5000/api/fixtures?sport=${filterChange}&date=${yesterdayString}`,
+          );
+          checkData(data.data.sportsData);
+          console.log("cricket: ", data.data.sportsData);
           setDataSource(data.dataSource);
         }
       } catch (err) {
@@ -91,6 +91,7 @@ const Fixtures = () => {
         <div className="text-fixtures-theme flex pt-5 text-5xl font-medium lg:pt-15">
           <p>Live Fixtures.</p>
         </div>
+        <FixturesFilter />
         <div className="flex flex-col gap-10 py-10 lg:px-50">
           {Array(2)
             .fill(0)

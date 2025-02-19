@@ -1,5 +1,5 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
-import { getNewsData } from "../api/fetchNews.js";
 import NewsCards from "../components/News/NewsCards";
 import NewsFilters from "../components/News/NewsFilters";
 import Notification from "../components/Notification.jsx";
@@ -12,28 +12,31 @@ const News = () => {
 
   const handleFilterChange = (selectedFilter) => {
     setFilterChange(selectedFilter);
-    console.log(selectedFilter);
   };
 
   useEffect(() => {
-    setLoading(true);
-    getNewsData(filterChange)
-      .then((response) => {
-        const articles = Array.isArray(response.newsData)
-          ? response.newsData
-          : response.newsData?.news || [];
-        setNewsItems(articles);
-        setDataSource(response.dataSource);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error loading news:", error);
-        setLoading(false);
-        setDataSource("Error");
-      });
-  }, [filterChange]);
+    const fetchNews = async () => {
+      setLoading(true);
+      try {
+        const { data } = await axios.get(
+          `http://localhost:5000/api/news?category=${filterChange}`,
+        );
 
-  console.log(dataSource);
+        const articles = Array.isArray(data.newsData)
+          ? data.newsData
+          : data.newsData?.news || [];
+        setNewsItems(articles);
+        setDataSource(data.dataSource);
+      } catch (error) {
+        console.error("Error loading news:", error);
+        setDataSource("Error");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchNews();
+  }, [filterChange]);
 
   return (
     <>

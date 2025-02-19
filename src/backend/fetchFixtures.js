@@ -1,13 +1,19 @@
-import { database, get, ref, remove, set } from "./firebase";
+import dotenv from "dotenv";
+import { dirname } from "path";
+import { fileURLToPath } from "url";
+import { database, get, ref, remove, set } from "./firebase.js";
 
-const apiKey = import.meta.env.VITE_SPORTS_APP;
-const cricket_apiKey = import.meta.env.VITE_CRICKET_APP;
+const __dirname = dirname(fileURLToPath(import.meta.url));
+dotenv.config({ path: "../../.env" });
+
+const apiKey = process.env.SPORTS_APP;
+const cricket_apiKey = process.env.CRICKET_APP;
 let dataSource = "";
 
 const API_ENDPOINTS = {
-  football: "https://v3.football.api-sports.io/fixtures",
-  cricket: "https://api.cricapi.com/v1/currentMatches",
-  basketball: "https://v2.nba.api-sports.io/games",
+  football: process.env.FIXTURES_FOOTBALL_ENDPOINT,
+  cricket: process.env.FIXTURES_CRICKET_ENDPOINT,
+  basketball: process.env.FIXTURES_BASKETBALL_ENDPOINT,
 };
 
 const API_HOSTS = {
@@ -16,22 +22,39 @@ const API_HOSTS = {
 };
 
 const cleanupPreviousDate = async (sport, date) => {
-  const prevDate = new Date(date);
+  const today = new Date(date);
+  const todayString = today.toISOString().split("T")[0];
 
-  prevDate.setDate(prevDate.getDate() - 1);
+  const sportFixturesRef = ref(database, `${sport}Fixtures`);
 
-  const prevDateString = prevDate.toISOString().split("T")[0];
-  const prevDateRef = ref(database, `${sport}Fixtures/${prevDateString}`);
-  const prevSnapshot = await get(prevDateRef);
+  console.log(`Cleaning up other dates fixtures data for sport: ${sport}`);
 
-  if (prevSnapshot.exists()) {
-    await remove(prevDateRef);
+  const snapshot = await get(sportFixturesRef);
 
-    console.log("Removed previous fixtures data from Firebase");
+  if (snapshot.exists()) {
+    const dates = Object.keys(snapshot.val());
+
+    console.log(dates);
+
+    for (const dateKey of dates) {
+      console.log(`Comparing dates: ${dateKey} !== ${todayString}`);
+
+      if (dateKey !== todayString) {
+        const dateRef = ref(database, `${sport}Fixtures/${dateKey}`);
+        console.log(`Removing fixtures data for: ${sport}/${dateKey}`);
+        await remove(dateRef);
+        console.log(`Removed fixtures data for ${dateKey} from Firebase`);
+      } else {
+        console.log(`Skipping today's fixtures data: ${sport}/${dateKey}`);
+      }
+    }
+    console.log("Cleanup of other dates fixtures completed for sport:", sport);
+  } else {
+    console.log(`No fixtures data exists for sport: ${sport} to cleanup.`);
   }
 };
 
-const fetchFixtures = async (sport, date) => {
+export const fetchFixtures = async (sport, date) => {
   try {
     const dbRef = ref(database, `${sport}Fixtures/${date}`);
 
@@ -71,14 +94,6 @@ const fetchFixtures = async (sport, date) => {
 
     throw error;
   }
-};
-
-export const fetchFootballFixtures = (sport, date) => {
-  return fetchFixtures(sport, date);
-};
-
-export const fetchBasketballFixtures = (sport, date) => {
-  return fetchFixtures(sport, date);
 };
 
 export const fetchCricketFixtures = async (date) => {

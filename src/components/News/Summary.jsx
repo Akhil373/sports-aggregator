@@ -1,8 +1,8 @@
+import axios from "axios";
 import { motion } from "framer-motion";
 import { Sparkle } from "lucide-react";
 import { useEffect, useState } from "react";
 import Markdown from "react-markdown";
-import { summarizeArticles } from "../../api/gemini";
 
 const Summary = ({ data, category }) => {
   const [response, setResponse] = useState("");
@@ -14,24 +14,25 @@ const Summary = ({ data, category }) => {
       setLoadingSummary(true);
       setResponse("");
       setIsSummaryVisible(true);
-      const summaryGenerator = await summarizeArticles(data, category);
 
-      if (!summaryGenerator) {
+      const payload = {
+        articles: data,
+        category,
+      };
+
+      const { data: result } = await axios.post(
+        "http://localhost:5000/api/summary",
+        payload,
+      );
+
+      if (!result.summary) {
         setResponse("Error summarizing articles. Please try again.");
         return;
       }
 
-      let accumulatedResponse = "";
-      for await (const chunk of summaryGenerator) {
-        if (chunk === null) {
-          setResponse("Error summarizing articles. Please try again.");
-          return;
-        }
-        accumulatedResponse += chunk;
-        setResponse(accumulatedResponse);
-      }
+      setResponse(result.summary);
     } catch (error) {
-      console.error("Error during summarization:", error);
+      console.error("Error summarizing articles:", error);
       setResponse("Error summarizing articles. Please try again.");
     } finally {
       setLoadingSummary(false);
