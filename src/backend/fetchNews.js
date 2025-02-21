@@ -1,9 +1,8 @@
 import dotenv from "dotenv";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
-import { database, get, ref, remove, set } from "./firebase.js";
+import { admin, database } from "./firebase.js";
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
 dotenv.config({ path: "../../.env" });
 
 const news_apiKey = process.env.NEWS_APP;
@@ -13,20 +12,22 @@ const cleanupPreviousDateData = async (category, date) => {
   const today = new Date(date);
   const todayString = today.toISOString().split("T")[0];
 
-  const categoryRef = ref(database, `newsData/${category}`);
-
+  // Get a reference to the category node
+  const categoryRef = database.ref(`newsData/${category}`);
   console.log(`Cleaning up other dates data for category: ${category}`);
 
-  const snapshot = await get(categoryRef);
+  // Using the Admin SDK's once() method to retrieve data
+  const snapshot = await categoryRef.once("value");
 
   if (snapshot.exists()) {
     const dates = Object.keys(snapshot.val());
 
     for (const dateKey of dates) {
       if (dateKey !== todayString) {
-        const dateRef = ref(database, `newsData/${category}/${dateKey}`);
+        // Get a reference to the date node and remove it
+        const dateRef = database.ref(`newsData/${category}/${dateKey}`);
         console.log(`Removing data for: ${category}/${dateKey}`);
-        await remove(dateRef);
+        await dateRef.remove();
         console.log(`Removed data for ${dateKey} from Firebase`);
       } else {
         console.log(`Skipping today's data: ${category}/${dateKey}`);
@@ -42,9 +43,10 @@ export default async function getNewsData(category) {
   try {
     const today = new Date();
     const todayDate = today.toISOString().split("T")[0];
-    const dbRef = ref(database, `newsData/${category}/${todayDate}`);
+    const dbRef = database.ref(`newsData/${category}/${todayDate}`);
     console.log(`Checking Firebase: newsData/${category}/${todayDate}`);
-    const snapshot = await get(dbRef);
+
+    const snapshot = await dbRef.once("value");
 
     if (snapshot.exists()) {
       console.log("Loading news from Firebase cache");
@@ -81,7 +83,8 @@ export default async function getNewsData(category) {
       const data = await response.json();
       dataSource = "api";
 
-      await set(dbRef, data.articles);
+      // Save the new data to Firebase
+      await dbRef.set(data.articles);
       await cleanupPreviousDateData(category, today);
       return { newsData: data.articles, dataSource };
     }

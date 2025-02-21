@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
-import { database, get, ref, remove, set } from "./firebase.js";
+import { database } from "./firebase.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 dotenv.config({ path: "../../.env" });
@@ -25,11 +25,11 @@ const cleanupPreviousDate = async (sport, date) => {
   const today = new Date(date);
   const todayString = today.toISOString().split("T")[0];
 
-  const sportFixturesRef = ref(database, `${sport}Fixtures`);
+  const sportFixturesRef = database.ref(`${sport}Fixtures`);
 
   console.log(`Cleaning up other dates fixtures data for sport: ${sport}`);
 
-  const snapshot = await get(sportFixturesRef);
+  const snapshot = await sportFixturesRef.once("value");
 
   if (snapshot.exists()) {
     const dates = Object.keys(snapshot.val());
@@ -40,9 +40,9 @@ const cleanupPreviousDate = async (sport, date) => {
       console.log(`Comparing dates: ${dateKey} !== ${todayString}`);
 
       if (dateKey !== todayString) {
-        const dateRef = ref(database, `${sport}Fixtures/${dateKey}`);
+        const dateRef = database.ref(`${sport}Fixtures/${dateKey}`);
         console.log(`Removing fixtures data for: ${sport}/${dateKey}`);
-        await remove(dateRef);
+        await dateRef.remove();
         console.log(`Removed fixtures data for ${dateKey} from Firebase`);
       } else {
         console.log(`Skipping today's fixtures data: ${sport}/${dateKey}`);
@@ -56,9 +56,9 @@ const cleanupPreviousDate = async (sport, date) => {
 
 export const fetchFixtures = async (sport, date) => {
   try {
-    const dbRef = ref(database, `${sport}Fixtures/${date}`);
+    const dbRef = database.ref(`${sport}Fixtures/${date}`);
 
-    const snapshot = await get(dbRef);
+    const snapshot = await dbRef.once("value");
 
     if (snapshot.exists()) {
       console.log("snapshot found! Fetching from firebase realtime db.");
@@ -84,23 +84,22 @@ export const fetchFixtures = async (sport, date) => {
 
       const apiData = await response.json();
       const processedData = apiData;
-      await set(dbRef, processedData);
+      await dbRef.set(processedData);
       dataSource = "api";
 
       return { sportsData: processedData, dataSource };
     }
   } catch (error) {
     console.error("Error:", error);
-
     throw error;
   }
 };
 
 export const fetchCricketFixtures = async (date) => {
   try {
-    const dbRef = ref(database, `CricketFixtures/${date}`);
+    const dbRef = database.ref(`CricketFixtures/${date}`);
 
-    const snapshot = await get(dbRef);
+    const snapshot = await dbRef.once("value");
 
     if (snapshot.exists()) {
       console.log("snapshot found! Fetching from firebase realtime db.");
@@ -123,14 +122,13 @@ export const fetchCricketFixtures = async (date) => {
       const processedData = {
         response: apiData.data,
       };
-      await set(dbRef, processedData);
+      await dbRef.set(processedData);
       dataSource = "api";
 
       return { sportsData: processedData, dataSource };
     }
   } catch (error) {
     console.error("Error:", error);
-
     throw error;
   }
 };
