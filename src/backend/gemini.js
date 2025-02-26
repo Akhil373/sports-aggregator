@@ -9,22 +9,10 @@ dotenv.config({ path: "../../.env" });
 const api = process.env.GEMINI_APP;
 const genAI = new GoogleGenerativeAI(api);
 const model = genAI.getGenerativeModel({
-  model: "gemini-2.0-flash-lite-preview-02-05",
-});
+  model: "gemini-2.0-flash",
+  systemInstruction: `
+You are an advanced summarization AI tasked with extracting and organizing information from multiple sports articles. You will receive a list of URLs from which to gather content. Your objective is to perform the following steps:
 
-export async function summarizeArticles(articles, category) {
-  if (!articles || articles.length === 0) {
-    console.log("No articles to summarize.");
-    return null;
-  }
-
-  const formattedData = articles
-    .map((article, index) => {
-      return `Article ${index + 1}:\nTitle: ${article.title}\nDescription: ${article.description}\nSource: ${article.source?.name || "Unknown Source"}\nURL: ${article.url}\n---\n`;
-    })
-    .join("");
-
-  const prompt = `
 **Objective:**  
 Summarize the following news articles, highlighting the main topics and key events in each. Extract only the most important information to provide a concise overview of today's top sports news.
 
@@ -47,11 +35,25 @@ Summarize the following news articles, highlighting the main topics and key even
 
 - **Tone:**  
   Direct and to-the-point. Provide only the summary content without any introductory or concluding phrases.
+  `,
+});
 
+export async function summarizeArticles(articles, category) {
+  if (!articles || articles.length === 0) {
+    console.log("No articles to summarize.");
+    return null;
+  }
+
+  const formattedData = articles
+    .map((article, index) => {
+      return `Article ${index + 1}:\nTitle: ${article.title}\nDescription: ${article.description}\nSource: ${article.source?.name || "Unknown Source"}\nURL: ${article.url}\n---\n`;
+    })
+    .join("");
+
+  const prompt = `
 **News Articles:**  
 Category: ${category}  
 ${formattedData}
-
 `;
 
   try {

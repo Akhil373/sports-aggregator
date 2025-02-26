@@ -1,7 +1,7 @@
 // import React from "react";
 
 const FootballFixtures = ({ data }) => {
-  const { fixture, teams, league } = data;
+  const { fixture, teams, league, score } = data;
 
   let statusBg = "bg-gray-400";
   let statusText = fixture.status?.short || "VS";
@@ -54,8 +54,8 @@ const FootballFixtures = ({ data }) => {
           <div className="flex flex-col items-center justify-center">
             {" "}
             <p className="text-2xl font-extrabold text-gray-800">
-              {data.score
-                ? `${data.score?.fulltime.home} - ${data.score?.fulltime.away}`
+              {score && score.fulltime
+                ? `${score.fulltime.home} - ${score.fulltime.away}`
                 : "VS"}
             </p>
             {statusText === "Upcoming" && fixture.fixture?.date && (
