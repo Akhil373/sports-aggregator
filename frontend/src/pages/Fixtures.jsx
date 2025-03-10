@@ -26,7 +26,6 @@ const Fixtures = () => {
   }
 
   const yesterdayString = getYesterdayDateString();
-  console.log(yesterdayString);
 
   const handleFilterChange = (selectedFilter) => {
     setFilterChange(selectedFilter);
@@ -63,7 +62,6 @@ const Fixtures = () => {
             `http://localhost:5000/api/fixtures?sport=${filterChange}&date=${yesterdayString}`,
           );
           checkData(data.data.sportsData);
-          console.log("cricket: ", data.data.sportsData);
           setDataSource(data.dataSource);
         }
       } catch (err) {
@@ -88,11 +86,11 @@ const Fixtures = () => {
   if (loading)
     return (
       <>
-        <div className="text-fixtures-theme flex pt-5 text-5xl font-medium lg:pt-15">
+        <div className="text-fixtures-theme lg:pt-15 flex pt-5 text-5xl font-medium">
           <p>Live Fixtures.</p>
         </div>
         <FixturesFilter />
-        <div className="flex flex-col gap-10 py-10 lg:px-50">
+        <div className="lg:px-50 flex flex-col gap-10 py-10">
           {Array(2)
             .fill(0)
             .map((_, index) => (
@@ -105,7 +103,7 @@ const Fixtures = () => {
 
   return (
     <>
-      <div className="text-fixtures-theme flex pt-5 text-5xl font-medium lg:pt-15">
+      <div className="text-fixtures-theme lg:pt-15 flex pt-5 text-5xl font-medium">
         <p>Live Fixtures.</p>
       </div>
 
@@ -130,7 +128,7 @@ const Fixtures = () => {
             animate={{ opacity: 1, transform: "translateY(0px)" }}
             exit={{ opacity: 0, transform: "translateY(100px)" }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="flex flex-col gap-10 py-10 lg:px-50"
+            className="lg:px-50 flex flex-col gap-10 py-10"
           >
             {checkLength()
               .map((response) => {

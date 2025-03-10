@@ -6,7 +6,7 @@ import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-dotenv.config({ path: "../../.env" });
+dotenv.config({ path: "../.env" });
 
 // Adjust the path to go one directory up from the current module's directory
 const serviceAccountPath = join(

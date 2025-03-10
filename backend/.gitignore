@@ -12,7 +12,7 @@ dist
 dist-ssr
 *.local
 .env
-football-test-81e33-51a976a07996.json
+README.md
 
 # Editor directories and files
 .vscode/*

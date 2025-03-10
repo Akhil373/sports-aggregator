@@ -1,8 +1,8 @@
 import cors from "cors";
 import "dotenv/config";
 import express from "express";
-import getNewsData from "../backend/fetchNews.js";
 import { fetchCricketFixtures, fetchFixtures } from "./fetchFixtures.js";
+import getNewsData from "./fetchNews.js";
 import { summarizeArticles } from "./gemini.js";
 
 const app = express();
