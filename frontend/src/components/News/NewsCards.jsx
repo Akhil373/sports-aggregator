@@ -24,7 +24,7 @@ const NewsCards = ({ newsItems, loading, selectedFilter }) => {
           item.urlToImage ? (
             <div
               key={index}
-              className={`hover:shadow-summary-btn flex min-h-[400px] flex-col overflow-hidden rounded-2xl shadow-2xl transition-all hover:scale-[1.02] hover:shadow-lg lg:min-w-50 ${
+              className={`hover:shadow-news-theme-light lg:min-w-50 dark:shadow-news-bg-theme flex min-h-[400px] flex-col overflow-hidden rounded-2xl shadow-2xl transition-all hover:scale-[1.02] hover:shadow-2xl dark:shadow-xl ${
                 (index + 1) % 5 === 0 ? "md:col-span-2" : ""
               }`}
             >
@@ -33,6 +33,7 @@ const NewsCards = ({ newsItems, loading, selectedFilter }) => {
                   src={item.urlToImage}
                   alt={item.title}
                   className="h-full w-full object-cover"
+                  loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                 <span className="absolute bottom-4 left-4 text-sm font-medium text-white">
@@ -42,7 +43,7 @@ const NewsCards = ({ newsItems, loading, selectedFilter }) => {
               <div className="flex flex-1 flex-col gap-4 p-6">
                 <a
                   href={item.url}
-                  className="line-clamp-3 text-lg leading-tight font-semibold hover:underline"
+                  className="line-clamp-3 text-lg font-semibold leading-tight hover:underline"
                   target="_blank"
                 >
                   {item.title}

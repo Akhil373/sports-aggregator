@@ -21,9 +21,9 @@ const NewsFilters = ({ onFilterChange }) => {
         <button
           key={filter.id}
           onClick={() => handleFilterClick(filter.id)}
-          className={`text-2xs rounded-full px-6 py-1 transition-all ${
+          className={`text-2xs cursor-pointer rounded-full px-6 py-1 ${
             activeFilter === filter.id
-              ? "bg-news-theme font-[1000] text-black md:w-50"
+              ? "bg-news-theme md:w-50 font-[1000] text-black"
               : "border hover:bg-green-200 hover:text-black"
           }`}
         >

@@ -20,10 +20,10 @@ const FixturesFilter = ({ onFilterChange }) => {
         <button
           key={filter.id}
           onClick={() => handleFilterClick(filter.id)}
-          className={`text-2xs rounded-full px-6 py-1 transition-all ${
+          className={`text-2xs cursor-pointer rounded-full px-6 py-1 ${
             activeFilter === filter.id
-              ? "bg-[#ed2f85] font-[1000] text-black md:w-50"
-              : "border hover:bg-pink-100"
+              ? "md:w-50 bg-[#ed2f85] font-[1000] text-black"
+              : "border hover:bg-pink-100 hover:text-black"
           }`}
         >
           {filter.label}

@@ -41,16 +41,19 @@ const Summary = ({ data, category }) => {
 
   useEffect(() => {
     if (response) {
-      setTimeout(() => {
-        window.scrollBy(0, 200);
-      }, 100);
+      requestAnimationFrame(() => {
+        window.scrollBy({
+          top: 200,
+          behavior: "smooth",
+        });
+      });
     } else {
-      setTimeout(() => {
+      requestAnimationFrame(() => {
         window.scrollTo({
           top: 0,
           behavior: "smooth",
         });
-      }, 100);
+      });
     }
   }, [response]);
 
@@ -85,7 +88,7 @@ const Summary = ({ data, category }) => {
         </motion.div>
       )}
 
-      <div className="right-0 bottom-0 left-0 px-5 md:px-0 lg:absolute">
+      <div className="bottom-0 left-0 right-0 px-5 md:px-0 lg:absolute">
         <div className={isSummaryVisible ? "" : "flex justify-end"}>
           <button
             onClick={isSummaryVisible ? closeSummary : getSummary}
