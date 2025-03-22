@@ -1,5 +1,11 @@
-import { Award, LucideAlignRight, X } from "lucide-react";
-import React from "react";
+import {
+  Award,
+  LaptopMinimal,
+  LaptopMinimalCheckIcon,
+  LucideAlignRight,
+  X,
+} from "lucide-react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 const ThemeToggle = ({ darkTheme }) => {
@@ -63,8 +69,14 @@ const ThemeToggle = ({ darkTheme }) => {
   );
 };
 
-const NavBar = ({ theme, darkTheme }) => {
-  const [openNavbar, setOpenNavbar] = React.useState(false);
+const NavBar = ({ theme, darkTheme, clearTheme }) => {
+  const [openNavbar, setOpenNavbar] = useState(false);
+  const [systemTheme, setSystemTheme] = useState(false);
+
+  const handleSystemThemeClick = () => {
+    clearTheme();
+    setSystemTheme((prev) => !prev);
+  };
 
   const togglenavbar = () => {
     setOpenNavbar(!openNavbar);
@@ -72,7 +84,7 @@ const NavBar = ({ theme, darkTheme }) => {
 
   return (
     <>
-      <style jsx>{`
+      <style>{`
         .theme-toggle-icon {
           cursor: pointer;
           width: 30px;
@@ -87,7 +99,6 @@ const NavBar = ({ theme, darkTheme }) => {
           height: 100%;
         }
 
-        /* Sun styles */
         .sun {
           opacity: 1;
           transform-origin: center;
@@ -109,13 +120,12 @@ const NavBar = ({ theme, darkTheme }) => {
         }
 
         .sun line {
-          stroke: #ffcc33;
+          stroke: black;
           transition: all 0.5s ease;
           stroke-width: 2;
           stroke-linecap: round;
         }
 
-        /* Moon styles */
         .moon {
           opacity: 0;
           transform-origin: center;
@@ -138,7 +148,6 @@ const NavBar = ({ theme, darkTheme }) => {
             transform 0.5s ease;
         }
 
-        /* Light mode styles */
         .sun.light-mode {
           opacity: 1;
           transform: rotate(0) scale(1);
@@ -158,7 +167,6 @@ const NavBar = ({ theme, darkTheme }) => {
           transform: rotate(-90deg) scale(0.5);
         }
 
-        /* Dark mode styles */
         .sun.dark-mode {
           opacity: 0;
           transform: rotate(90deg) scale(0.5);
@@ -178,7 +186,6 @@ const NavBar = ({ theme, darkTheme }) => {
           transform: rotate(0) scale(1);
         }
 
-        /* Animation for rays */
         @keyframes rayPulse {
           0%,
           100% {
@@ -207,6 +214,14 @@ const NavBar = ({ theme, darkTheme }) => {
           <Link to="/fixtures">Fixtures</Link>
           <Link to="/leaderboards">League Table</Link>
         </div>
+
+        <button
+          className="w-0.5 cursor-pointer"
+          onClick={handleSystemThemeClick}
+        >
+          {systemTheme ? <LaptopMinimalCheckIcon /> : <LaptopMinimal />}
+        </button>
+
         <button
           className="cursor-pointer text-nowrap px-2 transition-all duration-500"
           onClick={theme}

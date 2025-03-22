@@ -27,11 +27,11 @@ const Notification = ({ source }) => {
       {fetchedFrom && (
         <motion.div
           key="notification"
-          initial={{ opacity: 0, y: -20 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
+          exit={{ opacity: 0, y: 20 }}
           transition={{ duration: 0.3 }}
-          className="bg-notification-theme absolute right-0 top-0 z-10 m-auto flex w-full flex-col items-center rounded-md text-gray-800 shadow-md md:m-3 md:w-fit"
+          className="bg-notification-theme absolute bottom-0 right-0 z-10 m-auto flex w-full flex-col items-center rounded-md text-gray-800 shadow-md md:m-3 md:w-fit"
         >
           <div className="flex w-full items-center gap-2 p-3 md:p-5">
             <InfoIcon />
