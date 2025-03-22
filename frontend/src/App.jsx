@@ -1,3 +1,4 @@
+// import { Home } from "lucide-react";
 import { useEffect, useState } from "react";
 import {
   Route,
@@ -8,6 +9,7 @@ import {
 import NavBar from "./components/NavBar";
 import NotFound from "./components/NotFound";
 import Fixtures from "./pages/Fixtures";
+import Home from "./pages/Home";
 import LeagueTable from "./pages/LeagueTable";
 import News from "./pages/News";
 
@@ -33,18 +35,26 @@ const AppContent = () => {
     });
   };
 
+  const clearTheme = () => {
+    localStorage.removeItem("darkTheme");
+    setDarkTheme(
+      window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches,
+    );
+  };
+
   useEffect(() => {
     if (location.pathname === "/fixtures") {
       setPageBgClass(
         "dark:from-fixtures-bg-theme from-fixtures-bg-theme-light min-h-screen bg-gradient-to-br to-white px-15 dark:to-black dark:text-white py-3",
       );
-    } else if (
-      location.pathname === "/" ||
-      location.pathname === "/news" ||
-      location.pathname === "/home"
-    ) {
+    } else if (location.pathname === "/news") {
       setPageBgClass(
         "dark:from-news-bg-theme min-h-screen bg-gradient-to-br from-lime-100 to-white px-4 text-black md:px-15 dark:to-black dark:text-white py-3",
+      );
+    } else if (location.pathname === "/") {
+      setPageBgClass(
+        "from-blue-900 md:px-15 min-h-screen bg-radial px-4 py-3 text-black to-black text-white",
       );
     } else {
       setPageBgClass(
@@ -57,9 +67,14 @@ const AppContent = () => {
     <div
       className={`min-h-screen w-full transition-colors duration-500 ${darkTheme ? "dark" : null} ${pageBgClass}`}
     >
-      <NavBar theme={toggleTheme} darkTheme={darkTheme} />
+      <NavBar
+        theme={toggleTheme}
+        darkTheme={darkTheme}
+        clearTheme={clearTheme}
+      />
       <Routes>
-        <Route path="/" element={<News />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/news" element={<News />} />
         <Route path="/fixtures" element={<Fixtures />} />
         <Route path="/leaderboards" element={<LeagueTable />} />
         <Route path="/*" element={<NotFound />} />

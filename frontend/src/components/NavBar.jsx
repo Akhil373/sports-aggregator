@@ -5,8 +5,8 @@ import {
   LucideAlignRight,
   X,
 } from "lucide-react";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 const ThemeToggle = ({ darkTheme }) => {
   return (
@@ -72,10 +72,18 @@ const ThemeToggle = ({ darkTheme }) => {
 const NavBar = ({ theme, darkTheme, clearTheme }) => {
   const [openNavbar, setOpenNavbar] = useState(false);
   const [systemTheme, setSystemTheme] = useState(false);
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
+
+  useEffect(() => {
+    if (!darkTheme) {
+      setSystemTheme(false);
+    }
+  }, [darkTheme]);
 
   const handleSystemThemeClick = () => {
     clearTheme();
-    setSystemTheme((prev) => !prev);
+    setSystemTheme(true);
   };
 
   const togglenavbar = () => {
@@ -203,39 +211,43 @@ const NavBar = ({ theme, darkTheme, clearTheme }) => {
       `}</style>
 
       <div
-        className={`${openNavbar ? "" : "z-5 sticky top-0"} hidden gap-12 overflow-hidden py-3 backdrop-blur-lg lg:flex dark:text-white`}
+        className={`${openNavbar ? null : "z-5 sticky top-0"} hidden gap-12 overflow-hidden py-3 backdrop-blur-lg lg:flex dark:text-white`}
       >
         <Link to="/" className="px-2">
           <Award />
         </Link>
         <div className="flex w-full items-center justify-center gap-12 transition-all duration-300">
           <Link to="/">Home</Link>
-          <Link to="/">Latest News</Link>
+          <Link to="/news">Latest News</Link>
           <Link to="/fixtures">Fixtures</Link>
           <Link to="/leaderboards">League Table</Link>
         </div>
+        {isHomePage ? null : (
+          <>
+            <button
+              className="w-0.5 cursor-pointer"
+              onClick={handleSystemThemeClick}
+            >
+              {systemTheme ? <LaptopMinimalCheckIcon /> : <LaptopMinimal />}
+            </button>
+            <button
+              className="cursor-pointer text-nowrap px-2 transition-all duration-500"
+              onClick={theme}
+            >
+              <ThemeToggle darkTheme={darkTheme} />
+            </button>
+          </>
+        )}
+      </div>
 
+      {isHomePage ? null : (
         <button
-          className="w-0.5 cursor-pointer"
-          onClick={handleSystemThemeClick}
-        >
-          {systemTheme ? <LaptopMinimalCheckIcon /> : <LaptopMinimal />}
-        </button>
-
-        <button
-          className="cursor-pointer text-nowrap px-2 transition-all duration-500"
+          className="absolute right-5 top-5 cursor-pointer rounded-[50%] border p-3 lg:hidden dark:text-white"
           onClick={theme}
         >
           <ThemeToggle darkTheme={darkTheme} />
         </button>
-      </div>
-
-      <button
-        className="absolute right-5 top-5 cursor-pointer rounded-[50%] border p-3 lg:hidden dark:text-white"
-        onClick={theme}
-      >
-        <ThemeToggle darkTheme={darkTheme} />
-      </button>
+      )}
 
       <div className="lg:hidden">
         <button
@@ -267,7 +279,7 @@ const NavBar = ({ theme, darkTheme, clearTheme }) => {
                 Home
               </Link>
               <Link
-                to="/"
+                to="/news"
                 className="rounded-xl bg-black p-4 font-extrabold text-white"
                 onClick={togglenavbar}
               >
