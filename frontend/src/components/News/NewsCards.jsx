@@ -1,7 +1,7 @@
 import NewsCardSkeleton from "./NewsCardSkeleton.jsx";
 import Summary from "./Summary.jsx";
 
-const NewsCards = ({ newsItems, loading, selectedFilter }) => {
+const NewsCards = ({ newsItems, loading, selectedFilter, slice }) => {
   if (loading) {
     return (
       <div className="m-auto">
@@ -18,9 +18,8 @@ const NewsCards = ({ newsItems, loading, selectedFilter }) => {
 
   return (
     <>
-      <Summary data={newsItems} category={selectedFilter} />
       <div className="grid grid-cols-1 gap-10 md:grid-cols-[repeat(auto-fit,minmax(300px,1fr))]">
-        {newsItems.slice(0, 30).map((item, index) =>
+        {newsItems.slice(0, slice).map((item, index) =>
           item.urlToImage ? (
             <div
               key={index}

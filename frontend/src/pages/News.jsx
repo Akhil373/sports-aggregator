@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import NewsCards from "../components/News/NewsCards";
 import NewsFilters from "../components/News/NewsFilters";
+import Summary from "../components/News/Summary.jsx";
 import Notification from "../components/Notification.jsx";
 
 const News = () => {
@@ -40,15 +41,18 @@ const News = () => {
 
   return (
     <>
-      <div className="from-news-theme flex pt-5 text-5xl font-medium lg:pt-15 dark:bg-gradient-to-t dark:to-yellow-400 dark:bg-clip-text dark:text-transparent">
+      <div className="from-news-theme lg:pt-15 flex pt-5 text-5xl font-medium dark:bg-gradient-to-t dark:to-yellow-400 dark:bg-clip-text dark:text-transparent">
         <p>Latest News.</p>
       </div>
       <Notification source={dataSource} />
       <NewsFilters onFilterChange={handleFilterChange} />
+
+      <Summary data={newsItems} category={filterChange} />
       <NewsCards
         newsItems={newsItems}
         loading={loading}
         selectedFilter={filterChange}
+        slice={30}
       />
     </>
   );
