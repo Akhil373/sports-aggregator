@@ -10,7 +10,6 @@ import NavBar from "./components/NavBar";
 import NotFound from "./components/NotFound";
 import Fixtures from "./pages/Fixtures";
 import Home from "./pages/Home";
-import LeagueTable from "./pages/LeagueTable";
 import News from "./pages/News";
 
 const AppContent = () => {
@@ -76,7 +75,6 @@ const AppContent = () => {
         <Route path="/" element={<Home />} />
         <Route path="/news" element={<News />} />
         <Route path="/fixtures" element={<Fixtures />} />
-        <Route path="/leaderboards" element={<LeagueTable />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
     </div>

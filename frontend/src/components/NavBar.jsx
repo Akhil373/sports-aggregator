@@ -220,7 +220,6 @@ const NavBar = ({ theme, darkTheme, clearTheme }) => {
           <Link to="/">Home</Link>
           <Link to="/news">Latest News</Link>
           <Link to="/fixtures">Fixtures</Link>
-          <Link to="/leaderboards">League Table</Link>
         </div>
         {isHomePage ? null : (
           <>
