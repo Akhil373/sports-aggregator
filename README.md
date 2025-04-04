@@ -112,9 +112,3 @@ NEWS_CRICKET_ENDPOINT=endpoint_url
 # Server Configuration
 PORT=5000
 ```
-
-## Documentation
-
-- [Frontend Documentation](./frontend/README.md)
-- [Backend Documentation](./backend/README.md)
-- [API Documentation](./backend/API.md)
